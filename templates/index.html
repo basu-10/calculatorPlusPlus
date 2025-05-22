@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator++</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Calculator++</h2>
+        <p>Supports paste, nested (), full keyboard input, history. Press Enter to evaluate.</p>
+
+        <input type="text" id="expression" placeholder="Type or click below" autofocus>
+
+        <div class="button-grid">
+            <!-- Row 1 -->
+            <button class="btn number" onclick="append('1')">1</button>
+            <button class="btn number" onclick="append('2')">2</button>
+            <button class="btn number" onclick="append('3')">3</button>
+            <button class="btn operator" onclick="append('+')">+</button>
+            <button class="btn sci" onclick="append('log(')">log</button>
+            
+
+            <!-- Row 2 -->
+            <button class="btn number" onclick="append('4')">4</button>
+            <button class="btn number" onclick="append('5')">5</button>
+            <button class="btn number" onclick="append('6')">6</button>
+            <button class="btn operator" onclick="append('-')">-</button>
+            <button class="btn sci" onclick="append('ln(')">ln</button>
+
+            <!-- Row 3 -->
+            <button class="btn number" onclick="append('7')">7</button>
+            <button class="btn number" onclick="append('8')">8</button>
+            <button class="btn number" onclick="append('9')">9</button>
+            <button class="btn operator" onclick="append('*')">*</button>
+            <button class="btn sci" onclick="append('*10^')">exp</button>
+
+            <!-- Row 4 -->
+            <button class="btn number" onclick="append('0')">0</button>
+            <button class="btn number" onclick="append('.')">.</button>
+            <button class="btn blank"></button>
+            <button class="btn operator" onclick="append('%')">mod</button>
+            <button class="btn operator" onclick="append('/')">/</button>
+            
+
+            <!-- Row 5 -->
+             <button class="btn blank"></button>
+            <button class="btn blank"></button>
+            <button class="btn brackets" onclick="append('(')">(</button>
+            <button class="btn brackets" onclick="append(')')">)</button>
+            <button class="btn fixed" onclick="append('pi')">π</button>
+            
+            <!-- Row 6 -->
+            <button class="btn to_the_power" onclick="append('^')">xʸ</button>
+            <button class="btn to_the_power" onclick="append('**2')">x²</button>
+            <button class="btn to_the_power" onclick="append('**3')">x³</button>
+            <button class="btn to_the_power" onclick="append('sqrt(')">√</button>
+            <button class="btn to_the_power" onclick="append('cbrt(')">3√</button>
+
+            <!-- Row 7: Actions -->
+            <button class="btn action" onclick="clearInput()">C</button>
+            <button class="btn action" onclick="backspace()">⌫</button>
+            <button class="btn blank"></button>
+            <button class="btn blank"></button>
+            <button class="btn equals" onclick="submitExpression()">=</button>
+            <br>
+        </div>
+
+        <h3>Result: <span id="result"></span></h3>
+
+        <h3>History</h3>
+        <form method="post" action="/clear">
+            <button type="submit" class="btn action">Clear</button>
+        </form>
+
+        <table id="history-table">
+            <thead>
+                <tr><th>Expression</th><th>Result</th></tr>
+            </thead>
+            <tbody>
+                {% for entry in history %}
+                <tr>
+                    <td>{{ entry.expression }}</td>
+                    <td>{{ entry.result }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function append(val) {
+            document.getElementById('expression').value += val;
+        }
+
+        function backspace() {
+            const input = document.getElementById('expression');
+            input.value = input.value.slice(0, -1);
+        }
+
+        function clearInput() {
+            document.getElementById('expression').value = '';
+            document.getElementById('result').innerText = '';
+        }
+
+        function submitExpression() {
+            const inputElem = document.getElementById('expression');
+            const expression = inputElem.value;
+
+            fetch('/calculate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ expression })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = data.result;
+                inputElem.value = data.result;
+
+                const historyTable = document.querySelector("#history-table tbody");
+                const newRow = historyTable.insertRow();
+                const exprCell = newRow.insertCell(0);
+                const resultCell = newRow.insertCell(1);
+                exprCell.textContent = expression;
+                resultCell.textContent = data.result;
+            });
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                submitExpression();
+            }
+        });
+    </script>
+</body>
+</html>

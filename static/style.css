@@ -1,0 +1,109 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f2f2f2;
+    text-align: center;
+    padding: 20px;
+}
+
+.container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 700px;
+    margin: auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+input[type="text"] {
+    width: 90%;
+    font-size: 1.2rem;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    justify-items: center;
+    margin: 20px auto;
+}
+
+.btn {
+    padding: 12px 0;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    width: 100%;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* Button Groups */
+.number {
+    background-color: #30acff;
+    color: white;
+}
+
+.brackets{
+    background-color: #ff2ff1;
+    color: white;
+}
+
+.to_the_power{
+    background-color: #0069a1;
+    color: white;
+}
+
+.blank{
+background-color: white;
+    color: white;
+}
+
+
+.operator {
+    background-color: #0048ff;
+    color: white;
+}
+
+.sci {
+    background-color: #8e44ad;
+    color: white;
+}
+
+.fixed{
+    background-color: #ff2ff1;
+    color: white;
+}
+
+.action {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.equals {
+    background-color: #2ecc71;
+    color: white;
+}
+
+/* Result + History */
+#history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#history-table th, #history-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#history-table th {
+    background-color: #f4f4f4;
+}
