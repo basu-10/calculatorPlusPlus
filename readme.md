@@ -1,32 +1,29 @@
-# 1st mvp
+## 1st mvp
 
-- no login
+###🚀 Live Demo
 
-- one text box for keyb input, on screen nuton ip, paste supported, () supported 
+Try it here: 
 
-keys:
+Calculator++ is a completely free, scientific calculator web app.
 
-1 2 3
-4 5 6
-7 8 9
-0 .
+It supports full keyboard input, copy-paste, nested parentheses, evaluation history, and scientific functions like powers, logarithms, roots, π, and exponential notation.
 
-+ - * / mod
-( )
+## 🔧 Features
+
+✅ Basic arithmetic: + - × ÷ mod
+
+🧪 Scientific functions: xʸ, x², x³, √, ∛, log, ln, π, exp
+
+🧠 History table for evaluated expressions
+
+⌨️ Full keyboard support (press Enter to calculate)
+
+📋 Copy-paste into input supported
 
 
-xʸ x² x³ √ ∛
-log ln π exp
+## 🛠️ Tech Stack
+Frontend: HTML, CSS, JavaScript
 
-C ⌫ =
+Backend: Flask (Python)
 
-- clear history buton works
-result populates in ip box to continue operations on it
-
-- enter to evaluate
-- backspace button works as wella s from keyb
-
-## error
-
-- clicking withhin the formula to insert a symbol by pressing calc buttons not working,
-  555 =  i want to do 55-5 = insert a - at cursor . not happening via on screen keyb. actual keyb works
+Deployment: Render / GitHub Pages / Replit
